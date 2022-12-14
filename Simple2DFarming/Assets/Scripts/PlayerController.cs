@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public Inventory inventory;
+
     public float moveSpeed = 1f;
     public float collisionOffset = 0.03f;
     public ContactFilter2D movementFilter;
@@ -20,6 +22,11 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Awake() 
+    {
+        inventory = new Inventory(21);
     }
 
     private void FixedUpdate() {
