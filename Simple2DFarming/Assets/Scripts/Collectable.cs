@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
+    public Rigidbody2D rb2d;
     public CollectableType type;
     public Sprite icon;
+
+    private void Awake() 
+    {
+        rb2d = GetComponent<Rigidbody2D>();
+    }
+
     private void OnTriggerEnter2D(Collider2D other) 
     {
         // Player walks into collectable

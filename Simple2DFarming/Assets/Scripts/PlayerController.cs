@@ -29,6 +29,17 @@ public class PlayerController : MonoBehaviour
         inventory = new Inventory(21);
     }
 
+    public void DropItem(Collectable item)
+    {
+        Vector3 spawnLocation = transform.position;
+
+        Vector3 spawnOffset = Random.insideUnitCircle * 0.35f;
+
+        Collectable droppedItem = Instantiate(item, spawnLocation + spawnOffset, Quaternion.identity);
+
+        droppedItem.rb2d.AddForce(spawnOffset * 0.2f, ForceMode2D.Impulse);
+    }
+
     private void FixedUpdate() {
         // If movement input is not 0, try to move
         if(movementInput != Vector2.zero){
