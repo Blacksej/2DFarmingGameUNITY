@@ -24,6 +24,23 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    private void Update() 
+    {
+        // Convert our position to INT to pass onto the IsInteractable method from TileManager script
+        Vector3Int position = new Vector3Int(Mathf.FloorToInt(transform.position.x  / 0.16f), Mathf.FloorToInt((transform.position.y -0.16f) / 0.16f), 0);
+
+        GameManager.instance.tileManager.HighlightInteractiveTile(position);
+
+        if(Input.GetKeyDown(KeyCode.Space)) 
+        {        
+            if(GameManager.instance.tileManager.IsInteractable(position))
+            {
+                Debug.Log("Tile is interactable");
+                GameManager.instance.tileManager.SetInteracted(position);
+            }
+        }
+    }
+
     private void Awake() 
     {
         inventory = new Inventory(21);
