@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject inventoryPanel;
     public Inventory inventory;
 
     public float moveSpeed = 1f;
@@ -31,11 +32,10 @@ public class PlayerController : MonoBehaviour
 
         GameManager.instance.tileManager.HighlightInteractiveTile(position);
 
-        if(Input.GetKeyDown(KeyCode.Space)) 
+        if(Input.GetMouseButton(0) && !inventoryPanel.activeSelf) 
         {        
             if(GameManager.instance.tileManager.IsInteractable(position))
             {
-                Debug.Log("Tile is interactable");
                 GameManager.instance.tileManager.SetInteracted(position);
             }
         }
@@ -43,16 +43,16 @@ public class PlayerController : MonoBehaviour
 
     private void Awake() 
     {
-        inventory = new Inventory(21);
+        inventory = new Inventory(27);
     }
 
-    public void DropItem(Collectable item)
+    public void DropItem(Item item)
     {
         Vector3 spawnLocation = transform.position;
 
         Vector3 spawnOffset = Random.insideUnitCircle * 0.35f;
 
-        Collectable droppedItem = Instantiate(item, spawnLocation + spawnOffset, Quaternion.identity);
+        Item droppedItem = Instantiate(item, spawnLocation + spawnOffset, Quaternion.identity);
 
         droppedItem.rb2d.AddForce(spawnOffset * 0.2f, ForceMode2D.Impulse);
     }

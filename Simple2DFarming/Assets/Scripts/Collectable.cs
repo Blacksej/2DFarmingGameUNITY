@@ -2,33 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Item))]
 public class Collectable : MonoBehaviour
 {
-    public Rigidbody2D rb2d;
-    public CollectableType type;
-    public Sprite icon;
-
-    private void Awake() 
-    {
-        rb2d = GetComponent<Rigidbody2D>();
-    }
-
     private void OnTriggerEnter2D(Collider2D other) 
     {
         // Player walks into collectable
         PlayerController player = other.GetComponent<PlayerController>();
 
         if(player){
-            // Add collectable to player
-            player.inventory.Add(this);
+            Item item = GetComponent<Item>();
 
-            // Delete collectable from the scene
-            Destroy(this.gameObject);
+            if(item != null)
+            {
+                // Add collectable to player
+                player.inventory.Add(item);
+                Debug.Log("Encountered " + item.data.itemName);
+                // Delete collectable from the scene
+                Destroy(this.gameObject);
+            }
         }
     }
-}
-
-public enum CollectableType
-{
-    NONE, TOMATO_SEED
 }
