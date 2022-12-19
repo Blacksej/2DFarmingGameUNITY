@@ -25,8 +25,10 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    
     private void Update() 
     {
+        Debug.Log("Update called");
         // Convert our position to INT to pass onto the IsInteractable method from TileManager script
         Vector3Int position = new Vector3Int(Mathf.FloorToInt(transform.position.x  / 0.16f), Mathf.FloorToInt((transform.position.y -0.16f) / 0.16f), 0);
 

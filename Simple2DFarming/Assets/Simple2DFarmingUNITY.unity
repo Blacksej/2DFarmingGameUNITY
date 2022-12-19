@@ -71815,7 +71815,7 @@ PrefabInstance:
     - target: {fileID: 2680564482822408172, guid: 010ae441818dcf348a1cce14534347e5, type: 3}
       propertyPath: inventoryPanel
       value: 
-      objectReference: {fileID: 1319627320}
+      objectReference: {fileID: 2122343245}
     - target: {fileID: 2680564482822408172, guid: 010ae441818dcf348a1cce14534347e5, type: 3}
       propertyPath: collisionOffset
       value: 0.02
