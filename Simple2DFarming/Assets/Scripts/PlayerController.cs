@@ -28,7 +28,6 @@ public class PlayerController : MonoBehaviour
     
     private void Update() 
     {
-        Debug.Log("Update called");
         // Convert our position to INT to pass onto the IsInteractable method from TileManager script
         Vector3Int position = new Vector3Int(Mathf.FloorToInt(transform.position.x  / 0.16f), Mathf.FloorToInt((transform.position.y -0.16f) / 0.16f), 0);
 
@@ -57,6 +56,14 @@ public class PlayerController : MonoBehaviour
         Item droppedItem = Instantiate(item, spawnLocation + spawnOffset, Quaternion.identity);
 
         droppedItem.rb2d.AddForce(spawnOffset * 0.2f, ForceMode2D.Impulse);
+    }
+
+    public void DropItem(Item item, int numToDrop)
+    {
+        for (int i = 0; i < numToDrop; i++)
+        {
+            DropItem(item);
+        }
     }
 
     private void FixedUpdate() {
