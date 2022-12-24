@@ -6,12 +6,21 @@ using UnityEngine.Tilemaps;
 public class TileManager : MonoBehaviour
 {
     [SerializeField] private Tilemap interactableMap;
+    
+    [SerializeField] private Tilemap plantingMap;
     [SerializeField] private Tilemap groundMap;
 
+    // Interactive Tiles
     [SerializeField] private Tile hiddenInteractableTile;
     [SerializeField] private Tile interactedTile;
     [SerializeField] private Tile highlightTile;
     [SerializeField] private Tile defaultGroundTile;
+
+    // Potato Tiles
+    [SerializeField] private Tile firstStagePotatoTile;
+    [SerializeField] private Tile secondStagePotatoTile;
+    [SerializeField] private Tile thirdStagePotatoTile;
+    [SerializeField] private Tile lastStagePotatoTile;
 
     private Vector3Int prevPosition;
 
@@ -49,9 +58,43 @@ public class TileManager : MonoBehaviour
         return false;
     }
 
+    public bool IsPlowed(Vector3Int position)
+    {
+        TileBase tile = interactableMap.GetTile(position);
+
+        if(tile != null)
+        {
+            if(tile.name == "Summer_Plowed")
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void SetInteracted(Vector3Int position)
     {
         interactableMap.SetTile(position, interactedTile);
+    }
+
+    public void PlantPotato(Vector3Int position)
+    {
+        plantingMap.SetTile(position, firstStagePotatoTile);
+    }
+    public void GrowPotatoToLastStage(Vector3Int position)
+    {
+        plantingMap.SetTile(position, lastStagePotatoTile);   
+    }
+
+    public void GrowPotatoToThirdStage(Vector3Int position)
+    {
+        plantingMap.SetTile(position, thirdStagePotatoTile);   
+    }
+
+    public void GrowPotatoToSecondStage(Vector3Int position)
+    {
+        plantingMap.SetTile(position, secondStagePotatoTile);   
     }
 
     public void HighlightInteractiveTile(Vector3Int position)
@@ -82,4 +125,6 @@ public class TileManager : MonoBehaviour
 
         prevPosition = position;
     }
+
+
 }

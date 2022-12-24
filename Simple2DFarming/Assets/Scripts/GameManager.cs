@@ -6,8 +6,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public ItemManager itemManager;
+    public UI_Manager uiManager;
 
     public TileManager tileManager;
+    public PlayerController player;
 
     private void Awake() 
     {
@@ -24,5 +26,8 @@ public class GameManager : MonoBehaviour
 
         itemManager = GetComponent<ItemManager>();
         tileManager = GetComponent<TileManager>();
+        uiManager = GetComponent<UI_Manager>();
+        
+        player = FindObjectOfType<PlayerController>();
     }
 }

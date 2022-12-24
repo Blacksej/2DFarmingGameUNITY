@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public InventoryManager inventory;
     public GameObject inventoryPanel;
-    public Inventory inventory;
 
     public float moveSpeed = 1f;
     public float collisionOffset = 0.03f;
@@ -40,12 +40,44 @@ public class PlayerController : MonoBehaviour
                 GameManager.instance.tileManager.SetInteracted(position);
             }
         }
+
+        if(Input.GetMouseButton(1) && !inventoryPanel.activeSelf)
+        {
+            PlantPotato(position);
+        }
     }
 
     private void Awake() 
     {
-        inventory = new Inventory(27);
+        inventory = GetComponent<InventoryManager>();
     }
+
+    public void PlantPotato(Vector3Int position)
+    {
+        if(GameManager.instance.tileManager.IsPlowed(position))
+        {
+            GameManager.instance.tileManager.PlantPotato(position);
+            StartCoroutine("GrowPotato", position);
+        }
+    }
+
+    public IEnumerator GrowPotato(Vector3Int position)
+    {        
+        yield return new WaitForSeconds(10f);
+        GameManager.instance.tileManager.GrowPotatoToSecondStage(position);
+
+        yield return new WaitForSeconds(10f);
+        GameManager.instance.tileManager.GrowPotatoToThirdStage(position);
+
+        yield return new WaitForSeconds(10f);
+        GameManager.instance.tileManager.GrowPotatoToLastStage(position);
+    }
+
+    //public IEnumerator GrowPotatoLastStage(Vector3Int position)
+    //{
+       // yield return new WaitForSeconds(10f);
+       // GameManager.instance.tileManager.GrowPotatoToLastStage(position);
+    //}
 
     public void DropItem(Item item)
     {

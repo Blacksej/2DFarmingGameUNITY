@@ -16,8 +16,8 @@ public class Collectable : MonoBehaviour
             if(item != null)
             {
                 // Add collectable to player
-                player.inventory.Add(item);
-                Debug.Log("Encountered " + item.data.itemName);
+                player.inventory.Add("Backpack", item);
+                
                 // Delete collectable from the scene
                 Destroy(this.gameObject);
             }
